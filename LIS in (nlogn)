@@ -1,0 +1,58 @@
+vector<int> v;
+int n;
+pair<int,vector<int>> LIS()
+{
+    vector<int> L,id(n,0),par(n,-1),v1;
+
+    for(int i=0;i<n;i++)
+    {
+
+      //  strictly increasing lower bound
+      // not strictly increasing upper bound
+
+      int idd= lower_bound(all(L),v[i])-L.begin();
+
+       if(idd==sz(L))
+       {
+           L.pb(v[i]);
+           id[sz(L)-1]=i;
+           if(sz(L)>=2)
+           par[i]=id[sz(L)-2];
+           else
+           par[i]=-1;
+
+       }
+       else
+       {
+
+           L[idd]=v[i];
+           id[idd]=i;
+           if(idd!=0)
+           par[i]=id[idd-1];
+           else
+           par[i]=-1;
+
+       }
+
+    }
+
+    // printing
+
+    for(int i=id[sz(L)-1];i!=-1;i=par[i])
+        v1.pb(v[i]);
+
+    reverse(all(v1));
+   return mp(sz(L),v1);
+}
+int main()
+{
+    cin>>n;
+    int no;
+    for(int i=0;;i++)
+    {
+        cin>>no;
+        v.pb(no);
+    }
+    pair<int,vector<int >> ans=LIS();   // siz +  vector of LIS
+  }
+}
